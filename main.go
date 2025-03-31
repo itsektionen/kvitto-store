@@ -27,9 +27,8 @@ func main() {
 	// Setup and wait for exit signal
 	sigChannel := make(chan os.Signal, 1)
 	signal.Notify(sigChannel, syscall.SIGINT, syscall.SIGTERM, syscall.SIGQUIT)
-	select {
-	case <-sigChannel:
-		break
-	}
+
+	// Wait for exit signal
+	<-sigChannel
 	mq.Disconnect(uint(time.Second.Milliseconds()))
 }
